@@ -1,0 +1,71 @@
+<html>
+  <div class = "container">
+  <div class = "col-md-8">
+  <h1>Employee Portal</h1>
+  <table class = "table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+  <th class ="text-center bg-primary">FirstName</th>
+  <th class ="text-center bg-primary">LastName</th>
+  <th class ="text-center bg-primary">Email</th>
+  <th class ="text-center bg-primary">Designation</th>
+  <th class ="text-center bg-primary"></th>
+  </tr>
+  </thead>
+  <tbody >
+  <tr *ngFor="let employee of employees" >
+          
+  <td>{{employee.firstname}}</td>
+  <td>{{employee.lastname}}</td>
+  <td>{{employee.email}}</td>
+  <td>{{employee.designation}}</td>
+  <td>
+  <button class ="btn btn-info btn-xs" (click)= "showEditEmployeeForm(employee)"><i class ="fa fa-edit"></i></button>
+  <button class ="btn btn-danger btn-xs" (click)= "removeEmployee(employee)"><i class ="fa fa-minus"></i></button>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <button class ="btn btn-success"  (click)="showAddEmployeeForm()"><i class ="fa fa-plus"></i></button>
+  <button class ="btn btn-success" (click)="showSearchEmployeeForm()"> <i class ="fa fa-search"></i></button>
+  <button class ="btn btn-success" (click)="uploadExcel()"> <i class ="fa fa-upload"></i></button>
+  
+  <form *ngIf = "employeeForm">
+  <h2>Add Employee</h2>
+  <p>FirstName:<input type ="text" name ="firstname" [(ngModel)]= "newEmployee.firstname"></p>
+  <p>LastName:<input type ="text" name ="lastname" [(ngModel)]= "newEmployee.lastname"></p>
+  <p>Email:<input type ="text" name ="email" [(ngModel)]= "newEmployee.email"></p>
+  <p>Designation:<input type ="text" name ="designation" [(ngModel)]= "newEmployee.designation"></p>	
+  <p>
+  <button type ="button " class = "btn btn-primary" (click)="saveEmployee(newEmployee)">Submit</button>
+  <button type ="button " class = "btn btn-warning" (click)="cancelAdd()">Cancel</button>
+  </p>
+  </form>
+  <form *ngIf = "editedEmployeeForm">
+  <h2>Edit Employee Details</h2>
+  <p>FirstName:<input type ="text" name ="firstname" [(ngModel)]= "editedEmployee.firstname"></p>
+  <p>LastName:<input type ="text" name ="lastname" [(ngModel)]= "editedEmployee.lastname"></p>
+  <p>Email:<input type ="text" name ="email" [(ngModel)]= "editedEmployee.email"></p>
+  <p>Designation:<input type ="text" name ="designation" [(ngModel)]= "editedEmployee.designation"></p>	
+  <p>
+  <button type ="button " class = "btn btn-primary" (click)="updateEmployee(editedEmployee)">Submit</button>
+  <button type ="button " class = "btn btn-warning" (click)="cancelEdit()">Cancel</button>
+  </p>
+  </form>
+  <form *ngIf = "searchEmployeeForm">
+      <h2>Search  Employee</h2>   
+     <p>
+      <select [(ngModel)]= "searchDetails.searchKey" name ="search">
+          <option *ngFor = "let property of list"  value="{{property}}" >{{property}}</option>
+          
+      </select>    <input type ="text" name ="searchText" [(ngModel)]= "searchDetails.searchValue"></p>
+          
+        
+      <p>
+      <button type ="button " class = "btn btn-primary" (click)="searchEmployee(searchDetails)">Search</button>
+      <button type ="button " class = "btn btn-warning" (click)="cancelSearch()">Cancel</button>
+      </p>
+      </form>
+  </div>
+  </div>
+  </html>
